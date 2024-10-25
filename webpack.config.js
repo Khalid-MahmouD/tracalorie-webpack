@@ -4,12 +4,12 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  mode: "production", // Optimized for production
-  entry: "./src/index.js",
+  mode: "production",
+  entry: "./src/app.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contenthash].js", // Adds content hashing for cache-busting
-    clean: true, // Clears old files in the output folder
+    filename: "[name].[contenthash].js", // Avoids conflicts by using dynamic names
+    clean: true,
   },
   devServer: {
     static: {
@@ -46,7 +46,7 @@ module.exports = {
       template: "./src/index.html",
     }),
     new MiniCssExtractPlugin({
-      filename: "[name].[contenthash].css", // Cache-busting for CSS
+      filename: "[name].[contenthash].css", // Unique CSS file names
     }),
   ],
   optimization: {
@@ -69,7 +69,7 @@ module.exports = {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: "vendors",
-          chunks: "all",
+          chunks: "all", // Creates a separate vendor bundle
         },
       },
     },
